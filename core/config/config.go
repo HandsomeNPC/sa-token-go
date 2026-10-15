@@ -96,16 +96,26 @@ type Config struct {
 	TokenName string
 
 	// Timeout Token expiration time in seconds, -1 for never expire | Token超时时间（单位：秒，-1代表永不过期）
+	//
+	// 该有效期是绝对的：到点即失效，不会因活跃而自动延长。需要延长请显式调用 RenewTimeout。
 	Timeout int64
 
-	// MaxRefresh Threshold for triggering async token renewal (in seconds) | Token自动续期触发阈值（单位：秒，当剩余有效期低于该值时触发异步续期 -1或0代表不限制）
+	// MaxRefresh Threshold for triggering async token renewal (in seconds) | Token自动续期触发阈值（单位：秒）
+	//
+	// Deprecated: 固定 Timeout 改为绝对有效期后此项不再参与判定，仅保留以兼容既有配置。
+	// 滑动续期请改用 ActiveTimeout。
 	MaxRefresh int64
 
-	// RenewInterval Minimum interval between token renewals (ms) | Token最小续期间隔（单位：秒，同一个Token在此时间内只会续期一次 -1或0代表不限制）
+	// RenewInterval Minimum interval between active-time renewals in seconds | 活跃时间最小续期间隔（单位：秒，同一个Token在此时间内只续一次，-1或0代表不限制）
 	RenewInterval int64
 
 	// ActiveTimeout Token minimum activity frequency in seconds. If Token is not accessed for this time, it will be frozen. -1 means no limit | Token最低活跃频率（单位：秒），如果Token超过此时间没有访问，则会被冻结。-1代表不限制，永不冻结
 	ActiveTimeout int64
+
+	// DynamicActiveTimeout Enable per-token ActiveTimeout override carried in TokenInfo | 是否启用动态 activeTimeout（允许每个 token 带自己的活跃超时）
+	//
+	// 关闭时 LoginParameter.ActiveTimeout 被忽略、一律用全局 ActiveTimeout，可省去按 token 取值的开销。
+	DynamicActiveTimeout bool
 
 	// IsConcurrent Allow concurrent login for the same account (true=allow concurrent login, false=new login kicks out old login) | 是否允许同一账号并发登录（为true时允许一起登录，为false时新登录挤掉旧登录）
 	IsConcurrent bool
@@ -134,7 +144,9 @@ type Config struct {
 	// TokenSessionCheckLogin Check if Token-Session is kicked out when logging in (true=check on login, false=skip check) | Token-Session在登录时是否检查（true=登录时验证是否被踢下线，false=不作此检查）
 	TokenSessionCheckLogin bool
 
-	// AutoRenew Auto-renew Token expiration time on each validation | 是否自动续期（每次验证Token时，都会延长Token的有效期）
+	// AutoRenew Auto-renew the active window on each login check | 是否自动续签活跃时间（每次校验登录时刷新最后活跃时间）
+	//
+	// 只续 ActiveTimeout 的滑动窗口，不延长固定 Timeout。
 	AutoRenew bool
 
 	// JwtSecretKey JWT secret key (only effective when TokenStyle=JWT) | JWT密钥（只有TokenStyle=JWT时，此配置才生效）
@@ -255,6 +267,7 @@ func DefaultConfig() *Config {
 		MaxRefresh:                 DefaultTimeout / 2,
 		RenewInterval:              NoLimit,
 		ActiveTimeout:              NoLimit,
+		DynamicActiveTimeout:       false,
 		IsConcurrent:               true,
 		IsShare:                    true,
 		MaxLoginCount:              DefaultMaxLoginCount,
@@ -435,6 +448,12 @@ func (c *Config) SetRenewInterval(interval int64) *Config {
 // SetActiveTimeout Set active timeout duration | 设置活跃超时时间
 func (c *Config) SetActiveTimeout(timeout int64) *Config {
 	c.ActiveTimeout = timeout
+	return c
+}
+
+// SetDynamicActiveTimeout Set whether per-token ActiveTimeout override is honored | 设置是否启用动态 activeTimeout
+func (c *Config) SetDynamicActiveTimeout(enabled bool) *Config {
+	c.DynamicActiveTimeout = enabled
 	return c
 }
 

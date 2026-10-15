@@ -4,91 +4,114 @@ English | [中文文档](auto-renew_zh.md)
 
 ## Design Goals
 
-Implement automatic token renewal functionality to keep active users logged in without requiring re-authentication, while ensuring high performance.
+Keep active users logged in without re-authentication, while enforcing a session ceiling that activity cannot bypass.
 
-## Core Design
+## Two Timeouts, Separate Roles
 
-### Asynchronous Renewal Strategy
+| Config | Meaning | Extended by renewal? |
+|---|---|---|
+| `Timeout` | Fixed validity, **absolute ceiling** | **No** — expires on schedule |
+| `ActiveTimeout` | Minimum activity frequency, sliding idle window | Yes — refreshed on every login check |
 
-Use **asynchronous goroutines** in the `IsLogin()` method to execute renewal operations, avoiding blocking the main flow.
+`AutoRenew` renews only the `ActiveTimeout` sliding window; it does **not** extend `Timeout`.
+With `Timeout=604800, ActiveTimeout=1800`: idle for 30 minutes freezes the token,
+and after 7 days re-login is forced no matter how active the user is.
+
+Call `RenewTimeout(token, seconds)` to extend the fixed validity explicitly.
+
+> An earlier implementation reset the `Timeout` TTL back to full inside `IsLogin()`,
+> which made occasionally-active sessions never expire. That behavior has been removed.
 
 ### Implementation Code
 
 ```go
 // IsLogin checks if user is logged in
 func (m *Manager) IsLogin(tokenValue string) bool {
-    // 1. Check token existence (synchronous)
-    if tokenValue == "" || !m.storage.Exists(tokenKey) {
+    if tokenValue == "" {
+        return false
+    }
+    tokenValue = m.CutTokenPrefix(tokenValue)
+
+    // 1. Read TokenInfo; the fixed Timeout is enforced by storage TTL,
+    //    so a missing key already means expired.
+    info, err := m.getTokenInfo(tokenValue, false)
+    if err != nil || info == nil {
         return false
     }
 
-    // 2. Check active timeout (synchronous)
-    if m.config.ActiveTimeout > 0 {
-        info, _ := m.getTokenInfo(tokenValue)
-        if info != nil {
-            elapsed := time.Now().Unix() - info.ActiveTime
-            if elapsed > m.config.ActiveTimeout {
-                m.LogoutByToken(tokenValue)  // Force logout
-                return false
-            }
+    // 2. Check active timeout, renew if needed
+    return m.passActiveTimeout(tokenValue, info)
+}
+
+// passActiveTimeout checks freeze first, then renews — the order matters
+func (m *Manager) passActiveTimeout(tokenValue string, info *TokenInfo) bool {
+    if !m.isOpenCheckActiveTimeout() {
+        return true
+    }
+    if m.activeTimeoutOf(tokenValue, info) == AlreadyFrozen {
+        return false
+    }
+    if m.config.AutoRenew {
+        // Renew at most once per RenewInterval
+        if m.config.RenewInterval <= 0 || !m.storage.Exists(m.getRenewKey(tokenValue)) {
+            m.renewToken(tokenValue) // refreshes ActiveTime only, TTL untouched
         }
     }
-
-    // 3. Async renewal (non-blocking)
-    if m.config.AutoRenew && m.config.Timeout > 0 {
-        go func() {
-            expiration := time.Duration(m.config.Timeout) * time.Second
-            
-            // Extend token expiration time
-            m.storage.Expire(tokenKey, expiration)
-
-            // Update active time
-            info, _ := m.getTokenInfo(tokenValue)
-            if info != nil {
-                info.ActiveTime = time.Now().Unix()
-                m.saveTokenInfo(tokenValue, info, expiration)
-            }
-        }()
-    }
-
-    return true  // Return immediately
+    return true
 }
 ```
 
+### Freezing Is a Soft State
+
+Hitting the active timeout deletes **no keys** — it only makes validation fail.
+`UpdateLastActiveToNow(token)` thaws it. This is distinct from `Timeout` expiry,
+where the storage layer removes the key outright.
+
+### Boundary Semantics
+
+`GetTokenActiveTimeout` returns the seconds left before freezing:
+
+| Case | Returns |
+|---|---|
+| Checking disabled (`ActiveTimeout<=0` and dynamic off) | `-1` never freeze |
+| Token declares `ActiveTimeout=-1` | `-1` never freeze |
+| `ActiveTime` missing, or token absent | `-2` treated as frozen |
+| Remaining `< 0` | `-2` frozen |
+| Remaining `== 0` | `0` not yet frozen |
+
+Note: a non-positive active timeout (global or per-token) is treated as *unconfigured*
+rather than "freeze after 0 seconds", so a missing config cannot lock everyone out.
+
+### Per-Client Timeouts
+
+With `DynamicActiveTimeout` enabled, each login can override both values:
+
+```go
+p := manager.NewLoginParameter(cfg)
+p.Timeout = 604800              // fixed validity for this login
+p.SetActiveTimeout(1800)        // active timeout for this login
+token, err := mgr.LoginWithParameter(loginID, p)
+```
+
+The override is persisted in `TokenInfo`. When `DynamicActiveTimeout` is off,
+a supplied `ActiveTimeout` is discarded (with a warning when `IsLog=true`).
+
 ## Workflow
 
-### Synchronous Part (Must Wait)
-
 ```
-1. Token existence check
-   ├─ Not exists → Return false
+1. Token existence check (fixed Timeout enforced by storage TTL)
+   ├─ Missing/expired → Return false
    └─ Exists → Continue
 
-2. Active timeout check (if configured)
-   ├─ Timeout → Force logout → Return false
-   └─ Not timeout → Continue
+2. Active timeout check (if enabled)
+   ├─ Frozen → Return false (no keys deleted; can be thawed by renewal)
+   └─ Not frozen → Continue
 
-3. Return true (immediately)
-```
+3. Renew active time (when AutoRenew=true)
+   └─ Refreshes ActiveTime only (SetKeepTTL, fixed TTL untouched).
+      Submitted to the renew pool when configured, otherwise run inline.
 
-### Asynchronous Part (Background Execution)
-
-```
-Start goroutine
-  ↓
-1. Extend token storage expiration
-   m.storage.Expire(tokenKey, expiration)
-  ↓
-2. Get token info
-   info := m.getTokenInfo(tokenValue)
-  ↓
-3. Update active time
-   info.ActiveTime = time.Now().Unix()
-  ↓
-4. Save token info
-   m.saveTokenInfo(tokenValue, info, expiration)
-  ↓
-goroutine ends
+4. Return true
 ```
 
 ## Performance Comparison
@@ -195,16 +218,26 @@ core.NewBuilder().
 
 ```go
 core.NewBuilder().
-    Timeout(86400).       // 24-hour absolute timeout
-    ActiveTimeout(1800).  // 30-minute inactive logout
-    AutoRenew(true).      // Auto-renewal
+    Timeout(86400).       // 24-hour absolute ceiling
+    ActiveTimeout(1800).  // freeze after 30 minutes idle
+    AutoRenew(true).      // auto-renew the active window
     Build()
 ```
 
 **Effect**:
-- Users can stay logged in for 24 hours while active
-- Forced logout after 30 minutes of inactivity
-- Each request triggers async renewal, fast response
+- At most 24 hours; re-login is forced then regardless of activity
+- Frozen after 30 minutes of inactivity
+- Each request refreshes the active time, fast response
+
+### Per-Client Timeouts
+
+```go
+core.NewBuilder().
+    Timeout(604800).
+    ActiveTimeout(1800).
+    DynamicActiveTimeout(true). // let each token carry its own active timeout
+    Build()
+```
 
 ## Concurrency Safety
 

@@ -59,6 +59,7 @@ const (
 type (
 	Manager             = manager.Manager
 	TokenInfo           = manager.TokenInfo
+	LoginParameter      = manager.LoginParameter
 	Session             = session.Session
 	TokenGenerator      = token.Generator
 	SaTokenContext      = context.SaTokenContext
@@ -178,6 +179,11 @@ func DefaultConfig() *Config {
 // NewManager Creates a new authentication manager | 创建新的认证管理器
 func NewManager(storage Storage, cfg *Config) *Manager {
 	return manager.NewManager(storage, cfg)
+}
+
+// NewLoginParameter Creates per-login parameters from config | 创建单次登录参数
+func NewLoginParameter(cfg *Config) *LoginParameter {
+	return manager.NewLoginParameter(cfg)
 }
 
 // NewContext Creates a new Sa-Token context | 创建新的Sa-Token上下文

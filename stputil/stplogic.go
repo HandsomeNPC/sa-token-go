@@ -52,6 +52,11 @@ func (s *StpLogic) Login(loginID interface{}, device ...string) (string, error) 
 	return s.manager.Login(toString(loginID), device...)
 }
 
+// LoginWithParameter performs login with per-login overrides | 按单次登录参数登录
+func (s *StpLogic) LoginWithParameter(loginID interface{}, param *manager.LoginParameter) (string, error) {
+	return s.manager.LoginWithParameter(toString(loginID), param)
+}
+
 // LoginByToken performs login with specified token | 使用指定Token登录
 func (s *StpLogic) LoginByToken(loginID interface{}, tokenValue string, device ...string) error {
 	return s.manager.LoginByToken(toString(loginID), tokenValue, device...)

@@ -115,6 +115,7 @@ func PrintWithConfig(cfg *config.Config) {
 	fmt.Println("├─────────────────────────────────────────────────────────┤")
 	fmt.Print(formatConfigLine("Token Timeout", formatTimeout(cfg.Timeout)))
 	fmt.Print(formatConfigLine("Active Timeout", formatTimeout(cfg.ActiveTimeout)))
+	fmt.Print(formatConfigLine("Dynamic Active Timeout", cfg.DynamicActiveTimeout))
 	fmt.Print(formatConfigLine("Auto Renew", cfg.AutoRenew))
 
 	// Renewal & Refresh Strategy | 续期与刷新策略

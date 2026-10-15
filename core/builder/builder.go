@@ -20,6 +20,8 @@ type Builder struct {
 	maxRefresh             int64
 	renewInterval          int64
 	activeTimeout          int64
+	dynamicActiveTimeout   bool
+	sameTokenTimeout       int64
 	isConcurrent           bool
 	isShare                bool
 	maxLoginCount          int
@@ -47,6 +49,8 @@ func NewBuilder() *Builder {
 		maxRefresh:             config.DefaultTimeout / 2,
 		renewInterval:          config.NoLimit,
 		activeTimeout:          config.NoLimit,
+		dynamicActiveTimeout:   false,
+		sameTokenTimeout:       86400, // 24 hours | 24小时
 		isConcurrent:           true,
 		isShare:                true,
 		maxLoginCount:          config.DefaultMaxLoginCount,
@@ -111,6 +115,20 @@ func (b *Builder) RenewInterval(seconds int64) *Builder {
 // ActiveTimeout sets active timeout in seconds | 设置活跃超时（秒）
 func (b *Builder) ActiveTimeout(seconds int64) *Builder {
 	b.activeTimeout = seconds
+	return b
+}
+
+// DynamicActiveTimeout enables per-token ActiveTimeout override | 启用动态活跃超时
+//
+// 开启后 LoginParameter.ActiveTimeout 才会生效，可让各客户端带各自的活跃超时。
+func (b *Builder) DynamicActiveTimeout(enabled bool) *Builder {
+	b.dynamicActiveTimeout = enabled
+	return b
+}
+
+// SameTokenTimeout sets the same-token validity in seconds | 设置 Same-Token 有效期（秒）
+func (b *Builder) SameTokenTimeout(seconds int64) *Builder {
+	b.sameTokenTimeout = seconds
 	return b
 }
 
@@ -407,6 +425,7 @@ func (b *Builder) buildConfig() *config.Config {
 		MaxRefresh:             b.maxRefresh,
 		RenewInterval:          b.renewInterval,
 		ActiveTimeout:          b.activeTimeout,
+		DynamicActiveTimeout:   b.dynamicActiveTimeout,
 		IsConcurrent:           b.isConcurrent,
 		IsShare:                b.isShare,
 		MaxLoginCount:          b.maxLoginCount,
@@ -424,5 +443,6 @@ func (b *Builder) buildConfig() *config.Config {
 		CookieConfig:           b.cookieConfig,
 		RenewPoolConfig:        b.renewPoolConfig,
 		RememberMeTimeout:      b.rememberMeTimeout,
+		SameTokenTimeout:       b.sameTokenTimeout,
 	}
 }

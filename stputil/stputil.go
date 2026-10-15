@@ -79,6 +79,11 @@ func Login(loginID interface{}, device ...string) (string, error) {
 	return globalLogic.Login(toString(loginID), device...)
 }
 
+// LoginWithParameter performs login with per-login overrides | 按单次登录参数登录
+func LoginWithParameter(loginID interface{}, param *manager.LoginParameter) (string, error) {
+	return globalLogic.LoginWithParameter(toString(loginID), param)
+}
+
 // LoginByToken performs login with specified token | 使用指定Token登录
 func LoginByToken(loginID interface{}, tokenValue string, device ...string) error {
 	return globalLogic.LoginByToken(toString(loginID), tokenValue, device...)
@@ -556,6 +561,16 @@ func GetTokenLastActiveTime(tokenValue string) (int64, error) {
 
 func CheckActiveTimeout(tokenValue string) error {
 	return globalLogic.CheckActiveTimeout(tokenValue)
+}
+
+// IsFreeze reports whether the token is frozen by active timeout | 是否已被活跃超时冻结
+func IsFreeze(tokenValue string) bool {
+	return globalLogic.GetManager().IsFreeze(tokenValue)
+}
+
+// GetTokenActiveTimeout returns seconds left before freezing (-1 never, -2 frozen) | 距离冻结的剩余秒数
+func GetTokenActiveTimeout(tokenValue string) int64 {
+	return globalLogic.GetManager().GetTokenActiveTimeout(tokenValue)
 }
 
 func GetTokenTimeout(tokenValue string) (int64, error) {

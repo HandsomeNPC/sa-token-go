@@ -71,6 +71,9 @@ type TokenInfo struct {
 	ActiveTime   int64  `json:"activeTime"` // Last active time | 最后活跃时间
 	Tag          string `json:"tag,omitempty"`
 	IsRememberMe bool   `json:"isRememberMe,omitempty"` // Remember-me mode | 记住我模式
+	// ActiveTimeout 本 token 的活跃超时覆盖值（秒），nil 表示回落全局配置。
+	// 指针 + omitempty 使改版前写入的 token 反序列化后为 nil，自动回落，无需数据迁移。
+	ActiveTimeout *int64 `json:"activeTimeout,omitempty"`
 }
 
 // Manager Authentication manager | 认证管理器
@@ -156,8 +159,13 @@ func getDevice(device []string) string {
 
 // getExpiration calculates expiration duration from config | 从配置计算过期时间
 func (m *Manager) getExpiration() time.Duration {
-	if m.config.Timeout > 0 {
-		return time.Duration(m.config.Timeout) * time.Second
+	return secondsToDuration(m.config.Timeout)
+}
+
+// secondsToDuration 把配置秒数转为存储 TTL，非正数一律转 0（storage.Set 以 0 表示永不过期）。
+func secondsToDuration(seconds int64) time.Duration {
+	if seconds > 0 {
+		return time.Duration(seconds) * time.Second
 	}
 	return 0
 }
@@ -172,12 +180,26 @@ func assertString(v any) (string, bool) {
 
 // Login Performs user login and returns token | 登录，返回Token
 func (m *Manager) Login(loginID string, device ...string) (string, error) {
+	p := NewLoginParameter(m.config)
+	p.Device = getDevice(device)
+	return m.LoginWithParameter(loginID, p)
+}
+
+// LoginWithParameter 按单次登录参数登录，可覆盖本次的 Timeout / ActiveTimeout。
+//
+// param 为 nil 时等价于 Login。对应 Java StpLogic.login(id, SaLoginParameter)。
+func (m *Manager) LoginWithParameter(loginID string, param *LoginParameter) (string, error) {
 	// Check if account is disabled | 检查账号是否被封禁
 	if m.IsDisable(loginID) {
 		return "", ErrAccountDisabled
 	}
 
-	deviceType := getDevice(device)
+	if param == nil {
+		param = NewLoginParameter(m.config)
+	}
+	param.normalize(m.config)
+
+	deviceType := param.Device
 	accountKey := m.getAccountKey(loginID, deviceType)
 
 	// Handle shared token for concurrent login | 处理多人登录共用 Token 的情况
@@ -228,14 +250,16 @@ func (m *Manager) Login(loginID string, device ...string) (string, error) {
 	}
 
 	nowTime := time.Now().Unix()
-	expiration := m.getExpiration()
+	expiration := secondsToDuration(param.expiration(m.config))
 
 	// Prepare TokenInfo object and serialize to JSON | 准备Token信息对象并序列化为JSON
 	tokenInfoStr, err := json.Marshal(TokenInfo{
-		LoginID:    loginID,
-		Device:     deviceType,
-		CreateTime: nowTime,
-		ActiveTime: nowTime,
+		LoginID:       loginID,
+		Device:        deviceType,
+		CreateTime:    nowTime,
+		ActiveTime:    nowTime,
+		IsRememberMe:  param.IsRememberMe,
+		ActiveTimeout: param.ActiveTimeout,
 	})
 	if err != nil {
 		return "", errs.ErrMarshalTokenInfo(err)
@@ -288,109 +312,15 @@ func (m *Manager) Login(loginID string, device ...string) (string, error) {
 
 // getRememberMeExpiration returns the remember-me token expiration | 返回记住我模式的Token过期时间
 func (m *Manager) getRememberMeExpiration() time.Duration {
-	if m.config.RememberMeTimeout > 0 {
-		return time.Duration(m.config.RememberMeTimeout) * time.Second
-	}
-	return 0
+	return secondsToDuration(m.config.RememberMeTimeout)
 }
 
 // LoginRememberMe performs login with remember-me mode (longer TTL) | 记住我模式登录（更长的Token有效期）
 func (m *Manager) LoginRememberMe(loginID string, device ...string) (string, error) {
-	if m.IsDisable(loginID) {
-		return "", ErrAccountDisabled
-	}
-
-	deviceType := getDevice(device)
-	accountKey := m.getAccountKey(loginID, deviceType)
-
-	if m.config.IsShare {
-		existingToken, err := m.storage.Get(accountKey)
-		if err == nil && existingToken != nil {
-			if tokenStr, ok := assertString(existingToken); ok && m.IsLogin(tokenStr) {
-				return tokenStr, nil
-			}
-		}
-	}
-
-	if !m.config.IsConcurrent {
-		_ = m.kickout(loginID, deviceType)
-	} else if m.config.MaxLoginCount > 0 && !m.config.IsShare {
-		tokens, _ := m.GetTokenValueListByLoginID(loginID)
-		if len(tokens) >= m.config.MaxLoginCount {
-			mode := strings.ToUpper(strings.TrimSpace(m.config.OverflowLogoutMode))
-			victim := m.pickOverflowVictimToken(tokens)
-			if victim == "" {
-				return "", ErrLoginLimitExceeded
-			}
-			switch mode {
-			case "KICKOUT":
-				_ = m.kickoutByToken(victim)
-			case "REPLACED":
-				_ = m.removeTokenChain(victim, false, listener.EventReplaced)
-			default:
-				_ = m.removeTokenChain(victim, false, listener.EventLogout)
-			}
-		}
-	}
-
-	tokenValue, err := m.generator.Generate(loginID, deviceType)
-	if err != nil {
-		return "", errs.ErrInvalidTokenDataWrap(err)
-	}
-
-	nowTime := time.Now().Unix()
-	expiration := m.getRememberMeExpiration()
-
-	tokenInfoStr, err := json.Marshal(TokenInfo{
-		LoginID:      loginID,
-		Device:       deviceType,
-		CreateTime:   nowTime,
-		ActiveTime:   nowTime,
-		IsRememberMe: true,
-	})
-	if err != nil {
-		return "", errs.ErrMarshalTokenInfo(err)
-	}
-
-	tokenKey := m.getTokenKey(tokenValue)
-	if err = m.storage.Set(tokenKey, string(tokenInfoStr), expiration); err != nil {
-		return "", errs.ErrStorageWrap(err)
-	}
-
-	if err = m.storage.Set(accountKey, tokenValue, expiration); err != nil {
-		return "", errs.ErrStorageWrap(err)
-	}
-
-	err = session.
-		NewSession(loginID, m.storage, m.prefix).
-		SetMulti(
-			map[string]any{
-				SessionKeyLoginID:   loginID,
-				SessionKeyDevice:    deviceType,
-				SessionKeyLoginTime: nowTime,
-			},
-			expiration,
-		)
-	if err != nil {
-		return "", errs.ErrStorageWrap(err)
-	}
-
-	if m.config.RightNowCreateTokenSession {
-		if _, err := m.GetTokenSession(tokenValue, true); err != nil {
-			return "", err
-		}
-	}
-
-	if m.eventManager != nil {
-		m.eventManager.Trigger(&listener.EventData{
-			Event:   listener.EventLogin,
-			LoginID: loginID,
-			Token:   tokenValue,
-			Device:  deviceType,
-		})
-	}
-
-	return tokenValue, nil
+	p := NewLoginParameter(m.config)
+	p.Device = getDevice(device)
+	p.IsRememberMe = true
+	return m.LoginWithParameter(loginID, p)
 }
 
 // IsRememberMeLogin checks if a token was created with remember-me mode | 检查Token是否为记住我模式创建
@@ -537,38 +467,21 @@ func (m *Manager) ReplacedByToken(tokenValue string) error {
 // ============ Token Validation | Token验证 ============
 
 // IsLogin 检查是否登录（传入值自动去前缀）
-// 续期逻辑中的 getTokenKey / getRenewKey 必须使用去前缀后的值，否则会写错 Redis 键
+//
+// 固定 Timeout 由存储 TTL 兜底、到点即失效，此处只做活跃超时的校验与续签
+// （对照 Java StpLogic.checkActiveTimeoutByConfig：先判冻结、再续活跃时间，顺序不可反）。
 func (m *Manager) IsLogin(tokenValue string) bool {
 	if tokenValue == "" {
 		return false
 	}
-	// 统一归一化：后续拼 key、renewKey、闭包里 renewToken 均用裸 token
+	// 统一归一化：后续拼 key、闭包里续签均用裸 token
 	tokenValue = m.CutTokenPrefix(tokenValue)
-	if _, err := m.getTokenInfo(tokenValue, false); err != nil {
+	info, err := m.getTokenInfo(tokenValue, false)
+	if err != nil || info == nil {
 		return false
 	}
 
-	// 异步自动续期（提高性能）
-	if m.config.AutoRenew && m.config.Timeout > 0 {
-		tokenKey := m.getTokenKey(tokenValue)
-		if ttl, err := m.storage.TTL(tokenKey); err == nil {
-			ttlSeconds := int64(ttl.Seconds())
-
-			// TTL 低于 MaxRefresh 且 RenewInterval 允许时才续期
-			if ttlSeconds > 0 && (m.config.MaxRefresh <= 0 || ttlSeconds <= m.config.MaxRefresh) && (m.config.RenewInterval <= 0 || !m.storage.Exists(m.getRenewKey(tokenValue))) {
-				// 闭包捕获已归一化的 tokenValue，避免把 "Bearer xxx" 传入 renewToken
-				renewFunc := func() { m.renewToken(tokenValue) }
-
-				if m.renewPool != nil {
-					_ = m.renewPool.Submit(renewFunc)
-				} else {
-					go renewFunc()
-				}
-			}
-		}
-	}
-
-	return true
+	return m.passActiveTimeout(tokenValue, info)
 }
 
 // CheckLogin Checks login status (throws error if not logged in) | 检查登录（未登录抛出错误）
@@ -580,35 +493,25 @@ func (m *Manager) CheckLogin(tokenValue string) error {
 }
 
 // CheckLoginWithState 检查是否登录（返回详细状态）
-// 与 IsLogin 相同：先归一化 token，再查信息与续期，避免带前缀时续期写错键
+// 与 IsLogin 相同：先归一化 token，再查信息与活跃超时校验，避免带前缀时写错键
 func (m *Manager) CheckLoginWithState(tokenValue string) (bool, error) {
 	if tokenValue == "" {
 		return false, nil
 	}
-	// 归一化 token，保证后续 getTokenKey / getRenewKey / renewToken 一致
+	// 归一化 token，保证后续拼 key 与续签一致
 	tokenValue = m.CutTokenPrefix(tokenValue)
 
 	// 尝试获取 Token 信息（包含状态检查：踢下线/顶号）
-	_, err := m.getTokenInfo(tokenValue)
+	info, err := m.getTokenInfo(tokenValue)
 	if err != nil {
 		return false, err
 	}
+	if info == nil {
+		return false, ErrInvalidTokenData
+	}
 
-	// 异步自动续期
-	if m.config.AutoRenew && m.config.Timeout > 0 {
-		if ttl, err := m.storage.TTL(m.getTokenKey(tokenValue)); err == nil {
-			ttlSeconds := int64(ttl.Seconds())
-
-			if ttlSeconds > 0 && (m.config.MaxRefresh <= 0 || ttlSeconds <= m.config.MaxRefresh) && (m.config.RenewInterval <= 0 || !m.storage.Exists(m.getRenewKey(tokenValue))) {
-				renewFunc := func() { m.renewToken(tokenValue) }
-
-				if m.renewPool != nil {
-					_ = m.renewPool.Submit(renewFunc)
-				} else {
-					go renewFunc()
-				}
-			}
-		}
+	if !m.passActiveTimeout(tokenValue, info) {
+		return false, errs.ErrActiveTimeoutWithToken(tokenValue)
 	}
 
 	return true, nil
@@ -1054,7 +957,10 @@ func (m *Manager) getTokenInfo(tokenValue string, checkState ...bool) (*TokenInf
 	return &info, nil
 }
 
-// renewToken Renews token expiration asynchronously | 异步续期Token
+// renewToken 续签活跃时间：只刷新 ActiveTime，不动固定 TTL。
+//
+// 固定 Timeout 是绝对有效期（对照 Java：autoRenew 只续 active-timeout），
+// 旧实现在此延长 token/account/session 的 TTL，导致偶尔活跃即永不过期，已移除。
 func (m *Manager) renewToken(tokenValue string) {
 	tokenKey := m.getTokenKey(tokenValue)
 	info, err := m.getTokenInfo(tokenValue)
@@ -1071,22 +977,6 @@ func (m *Manager) renewToken(tokenValue string) {
 	info.ActiveTime = time.Now().Unix()
 	if tokenInfo, err := json.Marshal(info); err == nil {
 		_ = m.storage.SetKeepTTL(tokenKey, tokenInfo)
-	}
-
-	// Extend TTL for token and its accountKey | 为 Token 与对应 accountKey 延长 TTL
-	exp := m.getExpiration()
-	if exp > 0 {
-		// Renew token TTL | 续期 Token TTL
-		_ = m.storage.Expire(tokenKey, exp)
-
-		// Renew accountKey TTL | 续期账号映射 TTL
-		accountKey := m.getAccountKey(info.LoginID, info.Device)
-		_ = m.storage.Expire(accountKey, exp)
-
-		// Renew session TTL | 续期 Session TTL
-		if sess, err := m.GetSession(info.LoginID); err == nil && sess != nil {
-			_ = sess.Renew(exp)
-		}
 	}
 
 	// Set minimal renewal interval marker | 设置最小续期间隔标记（限流续期频率）

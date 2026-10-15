@@ -33,6 +33,7 @@ const (
 type (
 	Manager             = core.Manager
 	TokenInfo           = core.TokenInfo
+	LoginParameter      = core.LoginParameter
 	Session             = core.Session
 	TokenGenerator      = core.TokenGenerator
 	SaTokenContext      = core.SaTokenContext
@@ -172,6 +173,18 @@ func GetManager() *Manager {
 // Login performs user login | 用户登录
 func Login(loginID interface{}, device ...string) (string, error) {
 	return stputil.Login(loginID, device...)
+}
+
+// LoginWithParameter performs login with per-login overrides | 按单次登录参数登录
+//
+// 用于各客户端需带不同 Timeout / ActiveTimeout 的场景。
+func LoginWithParameter(loginID interface{}, param *LoginParameter) (string, error) {
+	return stputil.LoginWithParameter(loginID, param)
+}
+
+// NewLoginParameter creates per-login parameters from the global config | 基于全局配置创建单次登录参数
+func NewLoginParameter() *LoginParameter {
+	return core.NewLoginParameter(GetManager().GetConfig())
 }
 
 // LoginByToken performs login with specified token | 使用指定Token登录

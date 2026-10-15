@@ -59,6 +59,15 @@ func (m *MultiStpLogic) LoginByType(loginType string, loginID interface{}, devic
 	return logic.Login(loginID, device...)
 }
 
+// LoginByTypeWithParameter performs login for a specific account type with per-login overrides | 指定账号体系按参数登录
+func (m *MultiStpLogic) LoginByTypeWithParameter(loginType string, loginID interface{}, param *manager.LoginParameter) (string, error) {
+	logic, ok := m.Get(loginType)
+	if !ok {
+		return "", fmt.Errorf("login type %q not registered", loginType)
+	}
+	return logic.LoginWithParameter(loginID, param)
+}
+
 // GetLoginIDByType gets login ID for a specific account type | 获取指定账号体系的登录ID
 func (m *MultiStpLogic) GetLoginIDByType(loginType string, tokenValue string) (string, error) {
 	logic, ok := m.Get(loginType)
