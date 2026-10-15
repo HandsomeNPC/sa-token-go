@@ -5,12 +5,12 @@ import (
 	"sync"
 	"time"
 
-	core "github.com/sa-tokens/sa-token-go/core"
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/manager"
-	"github.com/sa-tokens/sa-token-go/core/oauth2"
-	"github.com/sa-tokens/sa-token-go/core/security"
-	"github.com/sa-tokens/sa-token-go/core/session"
+	core "github.com/HandsomeNPC/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
+	"github.com/HandsomeNPC/sa-token-go/core/oauth2"
+	"github.com/HandsomeNPC/sa-token-go/core/security"
+	"github.com/HandsomeNPC/sa-token-go/core/session"
 )
 
 var (

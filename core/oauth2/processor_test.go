@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/config"
-	"github.com/sa-tokens/sa-token-go/core/manager"
-	oauth2 "github.com/sa-tokens/sa-token-go/core/oauth2"
-	"github.com/sa-tokens/sa-token-go/storage/memory"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/config"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
+	oauth2 "github.com/HandsomeNPC/sa-token-go/core/oauth2"
+	"github.com/HandsomeNPC/sa-token-go/storage/memory"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

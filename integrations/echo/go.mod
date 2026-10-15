@@ -1,11 +1,11 @@
-module github.com/sa-tokens/sa-token-go/integrations/echo
+module github.com/HandsomeNPC/sa-token-go/integrations/echo
 
 go 1.25.0
 
 require (
 	github.com/labstack/echo/v4 v4.15.2
-	github.com/sa-tokens/sa-token-go/core v0.2.4
-	github.com/sa-tokens/sa-token-go/stputil v0.2.4
+	github.com/HandsomeNPC/sa-token-go/core v0.2.4
+	github.com/HandsomeNPC/sa-token-go/stputil v0.2.4
 )
 
 require (

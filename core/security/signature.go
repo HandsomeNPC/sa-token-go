@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/errs"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/errs"
 )
 
 // SignTemplate provides API parameter signing and verification | API 参数签名模板

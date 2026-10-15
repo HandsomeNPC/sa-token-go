@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sa-tokens/sa-token-go/core/errs"
+	"github.com/HandsomeNPC/sa-token-go/core/errs"
 )
 
 // Re-export sentinels from errs (manager/oauth2/sso import errs; callers may use core.*) | 从 errs 再导出

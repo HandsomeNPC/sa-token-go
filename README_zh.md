@@ -41,49 +41,49 @@
 
 ```bash
 # 只导入框架集成包（自动包含 core + stputil）
-go get github.com/sa-tokens/sa-token-go/integrations/gin@latest    # Gin框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/gin@latest    # Gin框架
 # 或
-go get github.com/sa-tokens/sa-token-go/integrations/echo@latest   # Echo框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/echo@latest   # Echo框架
 # 或
-go get github.com/sa-tokens/sa-token-go/integrations/fiber@latest  # Fiber v2框架
-go get github.com/sa-tokens/sa-token-go/integrations/fiberv3@latest # Fiber v3框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/fiber@latest  # Fiber v2框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/fiberv3@latest # Fiber v3框架
 # 或
-go get github.com/sa-tokens/sa-token-go/integrations/chi@latest    # Chi框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/chi@latest    # Chi框架
 # 或
-go get github.com/sa-tokens/sa-token-go/integrations/gf@latest     # GoFrame框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/gf@latest     # GoFrame框架
 # 或
-go get github.com/sa-tokens/sa-token-go/integrations/kratos@latest # Kratos框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/kratos@latest # Kratos框架
 # 或
-go get github.com/sa-tokens/sa-token-go/integrations/hertz@latest  # Hertz框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/hertz@latest  # Hertz框架
 # 或
-go get github.com/sa-tokens/sa-token-go/integrations/iris@latest   # Iris框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/iris@latest   # Iris框架
 
 # 存储模块（选一个）
-go get github.com/sa-tokens/sa-token-go/storage/memory@latest # 内存存储（开发）
-go get github.com/sa-tokens/sa-token-go/storage/redis@latest  # Redis存储（生产）
+go get github.com/HandsomeNPC/sa-token-go/storage/memory@latest # 内存存储（开发）
+go get github.com/HandsomeNPC/sa-token-go/storage/redis@latest  # Redis存储（生产）
 ```
 
 #### 方式二：分开导入
 
 ```bash
 # 核心模块
-go get github.com/sa-tokens/sa-token-go/core@latest 
-go get github.com/sa-tokens/sa-token-go/stputil@latest 
+go get github.com/HandsomeNPC/sa-token-go/core@latest 
+go get github.com/HandsomeNPC/sa-token-go/stputil@latest 
 
 # 存储模块（选一个）
-go get github.com/sa-tokens/sa-token-go/storage/memory@latest # 内存存储（开发）
-go get github.com/sa-tokens/sa-token-go/storage/redis@latest  # Redis存储（生产）
+go get github.com/HandsomeNPC/sa-token-go/storage/memory@latest # 内存存储（开发）
+go get github.com/HandsomeNPC/sa-token-go/storage/redis@latest  # Redis存储（生产）
 
 # 框架集成（可选）
-go get github.com/sa-tokens/sa-token-go/integrations/gin@latest    # Gin框架
-go get github.com/sa-tokens/sa-token-go/integrations/echo@latest   # Echo框架
-go get github.com/sa-tokens/sa-token-go/integrations/fiber@latest  # Fiber v2框架
-go get github.com/sa-tokens/sa-token-go/integrations/fiberv3@latest # Fiber v3框架
-go get github.com/sa-tokens/sa-token-go/integrations/chi@latest    # Chi框架
-go get github.com/sa-tokens/sa-token-go/integrations/gf@latest     # GoFrame框架
-go get github.com/sa-tokens/sa-token-go/integrations/kratos@latest # Kratos框架
-go get github.com/sa-tokens/sa-token-go/integrations/hertz@latest  # Hertz框架
-go get github.com/sa-tokens/sa-token-go/integrations/iris@latest   # Iris框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/gin@latest    # Gin框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/echo@latest   # Echo框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/fiber@latest  # Fiber v2框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/fiberv3@latest # Fiber v3框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/chi@latest    # Chi框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/gf@latest     # GoFrame框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/kratos@latest # Kratos框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/hertz@latest  # Hertz框架
+go get github.com/HandsomeNPC/sa-token-go/integrations/iris@latest   # Iris框架
 ```
 
 ### ⚡ 超简洁使用（一行初始化）
@@ -92,9 +92,9 @@ go get github.com/sa-tokens/sa-token-go/integrations/iris@latest   # Iris框架
 package main
 
 import (
-    "github.com/sa-tokens/sa-token-go/core"
-    "github.com/sa-tokens/sa-token-go/stputil"
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    "github.com/HandsomeNPC/sa-token-go/core"
+    "github.com/HandsomeNPC/sa-token-go/stputil"
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func init() {
@@ -311,9 +311,9 @@ package context
 import (
 	"strings"
 
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/config"
-	"github.com/sa-tokens/sa-token-go/core/manager"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/config"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
 )
 
 const bearerPrefix = "Bearer "
@@ -389,8 +389,8 @@ func ReadTokenFromRequest(ctx adapter.RequestContext, mgr *manager.Manager) stri
 ```go
 import (
     "github.com/gin-gonic/gin"
-    sagin "github.com/sa-tokens/sa-token-go/integrations/gin"  // 只需这一个导入！
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    sagin "github.com/HandsomeNPC/sa-token-go/integrations/gin"  // 只需这一个导入！
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func main() {
@@ -448,7 +448,7 @@ func main() {
 **使用示例：**
 
 ```go
-import sagin "github.com/sa-tokens/sa-token-go/integrations/gin"
+import sagin "github.com/HandsomeNPC/sa-token-go/integrations/gin"
 
 func main() {
     r := gin.Default()
@@ -501,8 +501,8 @@ func main() {
 import (
     "github.com/gogf/gf/v2/frame/g"
     "github.com/gogf/gf/v2/net/ghttp"
-    sagf "github.com/sa-tokens/sa-token-go/integrations/gf"  // 只需这一个导入！
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    sagf "github.com/HandsomeNPC/sa-token-go/integrations/gf"  // 只需这一个导入！
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func main() {
@@ -539,31 +539,31 @@ func main() {
 
 ```go
 // Echo
-import saecho "github.com/sa-tokens/sa-token-go/integrations/echo"
+import saecho "github.com/HandsomeNPC/sa-token-go/integrations/echo"
 e.GET("/user", saecho.CheckLogin(), handler)
 
 // Fiber (v2)
-import safiber "github.com/sa-tokens/sa-token-go/integrations/fiber"
+import safiber "github.com/HandsomeNPC/sa-token-go/integrations/fiber"
 app.Get("/user", safiber.CheckLogin(), handler)
 
 // Fiber v3
-import safiberv3 "github.com/sa-tokens/sa-token-go/integrations/fiberv3"
+import safiberv3 "github.com/HandsomeNPC/sa-token-go/integrations/fiberv3"
 app.Get("/user", safiberv3.CheckLogin(), handler)
 
 // Chi
-import sachi "github.com/sa-tokens/sa-token-go/integrations/chi"
+import sachi "github.com/HandsomeNPC/sa-token-go/integrations/chi"
 r.Get("/user", sachi.CheckLogin(), handler)
 
 // Kratos
-import sakratos "github.com/sa-tokens/sa-token-go/integrations/kratos"
+import sakratos "github.com/HandsomeNPC/sa-token-go/integrations/kratos"
 // 使用 Plugin.Server() 作为中间件
 
 // Hertz
-import sahertz "github.com/sa-tokens/sa-token-go/integrations/hertz"
+import sahertz "github.com/HandsomeNPC/sa-token-go/integrations/hertz"
 h.GET("/user", sahertz.CheckLogin(), handler)
 
 // Iris
-import sairis "github.com/sa-tokens/sa-token-go/integrations/iris"
+import sairis "github.com/HandsomeNPC/sa-token-go/integrations/iris"
 app.Get("/user", sairis.CheckLogin(), handler)
 ```
 
@@ -849,7 +849,7 @@ Apache License 2.0
 
 ## 📞 支持
 
-- 💬 问题反馈: [GitHub Issues](https://github.com/sa-tokens/sa-token-go/issues)
+- 💬 问题反馈: [GitHub Issues](https://github.com/HandsomeNPC/sa-token-go/issues)
 - 📖 文档: [docs/](docs/)
 
 ---

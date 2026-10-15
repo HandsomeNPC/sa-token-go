@@ -35,49 +35,49 @@ A lightweight, high-performance Go authentication and authorization framework, i
 
 ```bash
 # Import only the framework integration (includes core + stputil automatically)
-go get github.com/sa-tokens/sa-token-go/integrations/gin@latest    # Gin framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/gin@latest    # Gin framework
 # or
-go get github.com/sa-tokens/sa-token-go/integrations/echo@latest   # Echo framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/echo@latest   # Echo framework
 # or
-go get github.com/sa-tokens/sa-token-go/integrations/fiber@latest  # Fiber v2 framework
-go get github.com/sa-tokens/sa-token-go/integrations/fiberv3@latest # Fiber v3 framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/fiber@latest  # Fiber v2 framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/fiberv3@latest # Fiber v3 framework
 # or
-go get github.com/sa-tokens/sa-token-go/integrations/chi@latest    # Chi framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/chi@latest    # Chi framework
 # or
-go get github.com/sa-tokens/sa-token-go/integrations/gf@latest     # GoFrame framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/gf@latest     # GoFrame framework
 # or
-go get github.com/sa-tokens/sa-token-go/integrations/kratos@latest   # Kratos framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/kratos@latest   # Kratos framework
 # or
-go get github.com/sa-tokens/sa-token-go/integrations/hertz@latest  # Hertz framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/hertz@latest  # Hertz framework
 # or
-go get github.com/sa-tokens/sa-token-go/integrations/iris@latest   # Iris framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/iris@latest   # Iris framework
 
 # Storage module (choose one)
-go get github.com/sa-tokens/sa-token-go/storage/memory@latest # Memory storage (dev)
-go get github.com/sa-tokens/sa-token-go/storage/redis@latest  # Redis storage (prod)
+go get github.com/HandsomeNPC/sa-token-go/storage/memory@latest # Memory storage (dev)
+go get github.com/HandsomeNPC/sa-token-go/storage/redis@latest  # Redis storage (prod)
 ```
 
 #### Option 2: Separate Import
 
 ```bash
 # Core modules
-go get github.com/sa-tokens/sa-token-go/core@latest 
-go get github.com/sa-tokens/sa-token-go/stputil@latest 
+go get github.com/HandsomeNPC/sa-token-go/core@latest 
+go get github.com/HandsomeNPC/sa-token-go/stputil@latest 
 
 # Storage module (choose one)
-go get github.com/sa-tokens/sa-token-go/storage/memory@latest # Memory storage (dev)
-go get github.com/sa-tokens/sa-token-go/storage/redis@latest  # Redis storage (prod)
+go get github.com/HandsomeNPC/sa-token-go/storage/memory@latest # Memory storage (dev)
+go get github.com/HandsomeNPC/sa-token-go/storage/redis@latest  # Redis storage (prod)
 
 # Framework integration (optional)
-go get github.com/sa-tokens/sa-token-go/integrations/gin@latest    # Gin framework
-go get github.com/sa-tokens/sa-token-go/integrations/echo@latest   # Echo framework
-go get github.com/sa-tokens/sa-token-go/integrations/fiber@latest  # Fiber v2 framework
-go get github.com/sa-tokens/sa-token-go/integrations/fiberv3@latest # Fiber v3 framework
-go get github.com/sa-tokens/sa-token-go/integrations/chi@latest    # Chi framework
-go get github.com/sa-tokens/sa-token-go/integrations/gf@latest     # GoFrame framework
-go get github.com/sa-tokens/sa-token-go/integrations/kratos@latest # Kratos framework
-go get github.com/sa-tokens/sa-token-go/integrations/hertz@latest  # Hertz framework
-go get github.com/sa-tokens/sa-token-go/integrations/iris@latest   # Iris framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/gin@latest    # Gin framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/echo@latest   # Echo framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/fiber@latest  # Fiber v2 framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/fiberv3@latest # Fiber v3 framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/chi@latest    # Chi framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/gf@latest     # GoFrame framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/kratos@latest # Kratos framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/hertz@latest  # Hertz framework
+go get github.com/HandsomeNPC/sa-token-go/integrations/iris@latest   # Iris framework
 ```
 
 ### ⚡ Minimal Usage (One-line Initialization)
@@ -86,9 +86,9 @@ go get github.com/sa-tokens/sa-token-go/integrations/iris@latest   # Iris framew
 package main
 
 import (
-    "github.com/sa-tokens/sa-token-go/core"
-    "github.com/sa-tokens/sa-token-go/stputil"
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    "github.com/HandsomeNPC/sa-token-go/core"
+    "github.com/HandsomeNPC/sa-token-go/stputil"
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func init() {
@@ -305,9 +305,9 @@ package context
 import (
 	"strings"
 
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/config"
-	"github.com/sa-tokens/sa-token-go/core/manager"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/config"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
 )
 
 const bearerPrefix = "Bearer "
@@ -383,8 +383,8 @@ func ReadTokenFromRequest(ctx adapter.RequestContext, mgr *manager.Manager) stri
 ```go
 import (
     "github.com/gin-gonic/gin"
-    sagin "github.com/sa-tokens/sa-token-go/integrations/gin"  // Only this import needed!
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    sagin "github.com/HandsomeNPC/sa-token-go/integrations/gin"  // Only this import needed!
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func main() {
@@ -442,7 +442,7 @@ func main() {
 **Usage example:**
 
 ```go
-import sagin "github.com/sa-tokens/sa-token-go/integrations/gin"
+import sagin "github.com/HandsomeNPC/sa-token-go/integrations/gin"
 
 func main() {
     r := gin.Default()
@@ -495,8 +495,8 @@ func main() {
 import (
     "github.com/gogf/gf/v2/frame/g"
     "github.com/gogf/gf/v2/net/ghttp"
-    sagf "github.com/sa-tokens/sa-token-go/integrations/gf"  // Only this import needed!
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    sagf "github.com/HandsomeNPC/sa-token-go/integrations/gf"  // Only this import needed!
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func main() {
@@ -533,31 +533,31 @@ func main() {
 
 ```go
 // Echo
-import saecho "github.com/sa-tokens/sa-token-go/integrations/echo"
+import saecho "github.com/HandsomeNPC/sa-token-go/integrations/echo"
 e.GET("/user", saecho.CheckLogin(), handler)
 
 // Fiber (v2)
-import safiber "github.com/sa-tokens/sa-token-go/integrations/fiber"
+import safiber "github.com/HandsomeNPC/sa-token-go/integrations/fiber"
 app.Get("/user", safiber.CheckLogin(), handler)
 
 // Fiber v3
-import safiberv3 "github.com/sa-tokens/sa-token-go/integrations/fiberv3"
+import safiberv3 "github.com/HandsomeNPC/sa-token-go/integrations/fiberv3"
 app.Get("/user", safiberv3.CheckLogin(), handler)
 
 // Chi
-import sachi "github.com/sa-tokens/sa-token-go/integrations/chi"
+import sachi "github.com/HandsomeNPC/sa-token-go/integrations/chi"
 r.Get("/user", sachi.CheckLogin(), handler)
 
 // Kratos
-import sakratos "github.com/sa-tokens/sa-token-go/integrations/kratos"
+import sakratos "github.com/HandsomeNPC/sa-token-go/integrations/kratos"
 // Use Plugin.Server() as middleware
 
 // Hertz
-import sahertz "github.com/sa-tokens/sa-token-go/integrations/hertz"
+import sahertz "github.com/HandsomeNPC/sa-token-go/integrations/hertz"
 h.GET("/user", sahertz.CheckLogin(), handler)
 
 // Iris
-import sairis "github.com/sa-tokens/sa-token-go/integrations/iris"
+import sairis "github.com/HandsomeNPC/sa-token-go/integrations/iris"
 app.Get("/user", sairis.CheckLogin(), handler)
 ```
 
@@ -838,7 +838,7 @@ Special thanks to the following contributors for their valuable contributions:
 ## 📞 Support
 
 - 📧 Email: <support@sa-token-go.dev>
-- 💬 Issues: [GitHub Issues](https://github.com/sa-tokens/sa-token-go/issues)
+- 💬 Issues: [GitHub Issues](https://github.com/HandsomeNPC/sa-token-go/issues)
 - 📖 Documentation: [docs/](docs/)
 
 ---

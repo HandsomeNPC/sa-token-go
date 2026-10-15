@@ -3,7 +3,7 @@ package config
 import (
 	"testing"
 
-	"github.com/sa-tokens/sa-token-go/core/pool"
+	"github.com/HandsomeNPC/sa-token-go/core/pool"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

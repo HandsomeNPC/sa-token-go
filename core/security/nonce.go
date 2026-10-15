@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/sa-tokens/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
 )
 
 // Nonce Anti-Replay Attack Implementation

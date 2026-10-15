@@ -3,7 +3,7 @@ package manager
 import (
 	"strings"
 
-	"github.com/sa-tokens/sa-token-go/core/errs"
+	"github.com/HandsomeNPC/sa-token-go/core/errs"
 )
 
 // GetTokenName 返回配置的 Token 名称（Header/Cookie 键名）

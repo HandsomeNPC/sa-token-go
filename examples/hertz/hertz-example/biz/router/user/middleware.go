@@ -4,7 +4,7 @@ package user
 
 import (
 	"github.com/cloudwego/hertz/pkg/app"
-	sahertz "github.com/sa-tokens/sa-token-go/integrations/hertz"
+	sahertz "github.com/HandsomeNPC/sa-token-go/integrations/hertz"
 )
 
 func rootMw() []app.HandlerFunc {

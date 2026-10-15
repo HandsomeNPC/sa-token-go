@@ -6,10 +6,10 @@ import (
 	"testing"
 
 	irisfw "github.com/kataras/iris/v12"
-	"github.com/sa-tokens/sa-token-go/core/config"
-	"github.com/sa-tokens/sa-token-go/core/manager"
-	"github.com/sa-tokens/sa-token-go/storage/memory"
-	"github.com/sa-tokens/sa-token-go/stputil"
+	"github.com/HandsomeNPC/sa-token-go/core/config"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
+	"github.com/HandsomeNPC/sa-token-go/storage/memory"
+	"github.com/HandsomeNPC/sa-token-go/stputil"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

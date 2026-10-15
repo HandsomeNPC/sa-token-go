@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/sa-tokens/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/core"
 )
 
 // Plugin Fiber plugin for Sa-Token | Fiber插件

@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/sa-tokens/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/core"
 )
 
 // Plugin Gin plugin for Sa-Token | Gin插件

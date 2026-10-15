@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/sa-tokens/sa-token-go/core/errs"
+	"github.com/HandsomeNPC/sa-token-go/core/errs"
 )
 
 const (

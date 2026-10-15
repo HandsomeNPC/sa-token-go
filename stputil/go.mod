@@ -1,10 +1,10 @@
-module github.com/sa-tokens/sa-token-go/stputil
+module github.com/HandsomeNPC/sa-token-go/stputil
 
 go 1.25.0
 
 require (
-	github.com/sa-tokens/sa-token-go/core v0.2.4
-	github.com/sa-tokens/sa-token-go/storage/memory v0.2.4
+	github.com/HandsomeNPC/sa-token-go/core v0.2.4
+	github.com/HandsomeNPC/sa-token-go/storage/memory v0.2.4
 	github.com/stretchr/testify v1.11.1
 )
 

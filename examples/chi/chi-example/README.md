@@ -29,9 +29,9 @@ import (
     "net/http"
     
     "github.com/go-chi/chi/v5"
-    "github.com/sa-tokens/sa-token-go/core"
-    sachi "github.com/sa-tokens/sa-token-go/integrations/chi"
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    "github.com/HandsomeNPC/sa-token-go/core"
+    sachi "github.com/HandsomeNPC/sa-token-go/integrations/chi"
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func main() {
@@ -67,10 +67,10 @@ import (
     "net/http"
     
     "github.com/go-chi/chi/v5"
-    "github.com/sa-tokens/sa-token-go/core"
-    "github.com/sa-tokens/sa-token-go/stputil"
-    sachi "github.com/sa-tokens/sa-token-go/integrations/chi"
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    "github.com/HandsomeNPC/sa-token-go/core"
+    "github.com/HandsomeNPC/sa-token-go/stputil"
+    sachi "github.com/HandsomeNPC/sa-token-go/integrations/chi"
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func init() {

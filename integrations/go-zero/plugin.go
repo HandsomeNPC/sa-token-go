@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/sa-tokens/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/core"
 	"github.com/zeromicro/go-zero/rest"
 )
 

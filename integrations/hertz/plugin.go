@@ -8,7 +8,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/hertz/pkg/protocol"
-	"github.com/sa-tokens/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/core"
 )
 
 // Plugin Hertz plugin for Sa-Token | Hertz插件

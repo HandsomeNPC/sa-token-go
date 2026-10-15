@@ -60,10 +60,10 @@ import (
     "time"
     
     "github.com/gin-gonic/gin"
-    "github.com/sa-tokens/sa-token-go/core"
-    sagin "github.com/sa-tokens/sa-token-go/integrations/gin"
-    "github.com/sa-tokens/sa-token-go/stputil"
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    "github.com/HandsomeNPC/sa-token-go/core"
+    sagin "github.com/HandsomeNPC/sa-token-go/integrations/gin"
+    "github.com/HandsomeNPC/sa-token-go/stputil"
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func init() {

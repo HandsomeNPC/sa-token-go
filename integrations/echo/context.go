@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/sa-tokens/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
 )
 
 // EchoContext Echo request context adapter | Echo请求上下文适配器

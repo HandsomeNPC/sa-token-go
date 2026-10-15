@@ -7,9 +7,9 @@ import (
 	"net/url"
 	"strings"
 
-	core "github.com/sa-tokens/sa-token-go/core"
-	"github.com/sa-tokens/sa-token-go/core/manager"
-	"github.com/sa-tokens/sa-token-go/plugins/sso/common"
+	core "github.com/HandsomeNPC/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
+	"github.com/HandsomeNPC/sa-token-go/plugins/sso/common"
 )
 
 // Config SSO client configuration | SSO 客户端配置

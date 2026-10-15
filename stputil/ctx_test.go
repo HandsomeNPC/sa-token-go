@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	core "github.com/sa-tokens/sa-token-go/core"
+	core "github.com/HandsomeNPC/sa-token-go/core"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

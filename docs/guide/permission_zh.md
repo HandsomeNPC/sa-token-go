@@ -90,7 +90,7 @@ stputil.HasPermission(1000, "user:read")     // false
 ### 装饰器模式
 
 ```go
-import sagin "github.com/sa-tokens/sa-token-go/integrations/gin"
+import sagin "github.com/HandsomeNPC/sa-token-go/integrations/gin"
 
 // 需要user:read权限
 r.GET("/users", sagin.CheckPermission("user:read"), listUsersHandler)
@@ -173,7 +173,7 @@ if stputil.HasRole(1000, "editor") &&
 在 Gin 路由上也可使用注解组合（组内 OR，组间 AND/OR）：
 
 ```go
-import sagin "github.com/sa-tokens/sa-token-go/integrations/gin"
+import sagin "github.com/HandsomeNPC/sa-token-go/integrations/gin"
 
 // 权限组与角色组都必须通过
 r.GET("/publish",

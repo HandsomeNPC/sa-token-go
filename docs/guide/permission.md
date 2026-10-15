@@ -102,9 +102,9 @@ for _, perm := range permissions {
 package main
 
 import (
-    "github.com/sa-tokens/sa-token-go/core"
-    "github.com/sa-tokens/sa-token-go/stputil"
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    "github.com/HandsomeNPC/sa-token-go/core"
+    "github.com/HandsomeNPC/sa-token-go/stputil"
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func main() {
@@ -152,7 +152,7 @@ func main() {
 On Gin routes you can also combine permission-set and role-set (OR within each set; AND/OR between sets):
 
 ```go
-import sagin "github.com/sa-tokens/sa-token-go/integrations/gin"
+import sagin "github.com/HandsomeNPC/sa-token-go/integrations/gin"
 
 // Both permission-set and role-set must pass
 r.GET("/publish",

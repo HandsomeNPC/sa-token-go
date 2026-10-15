@@ -5,9 +5,9 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"github.com/sa-tokens/sa-token-go/examples/go-zero/go-zero-example/internal/svc"
-	"github.com/sa-tokens/sa-token-go/examples/go-zero/go-zero-example/internal/types"
-	sazero "github.com/sa-tokens/sa-token-go/integrations/go-zero"
+	"github.com/HandsomeNPC/sa-token-go/examples/go-zero/go-zero-example/internal/svc"
+	"github.com/HandsomeNPC/sa-token-go/examples/go-zero/go-zero-example/internal/types"
+	sazero "github.com/HandsomeNPC/sa-token-go/integrations/go-zero"
 )
 
 type AuthLogic struct {

@@ -2,14 +2,14 @@ package builder
 
 import (
 	"fmt"
-	"github.com/sa-tokens/sa-token-go/core/pool"
+	"github.com/HandsomeNPC/sa-token-go/core/pool"
 	"strings"
 	"time"
 
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/banner"
-	"github.com/sa-tokens/sa-token-go/core/config"
-	"github.com/sa-tokens/sa-token-go/core/manager"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/banner"
+	"github.com/HandsomeNPC/sa-token-go/core/config"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
 )
 
 // Builder Sa-Token builder for fluent configuration | Sa-Token构建器，用于流式配置

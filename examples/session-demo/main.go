@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/sa-tokens/sa-token-go/core"
-	"github.com/sa-tokens/sa-token-go/storage/memory"
-	"github.com/sa-tokens/sa-token-go/stputil"
+	"github.com/HandsomeNPC/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/storage/memory"
+	"github.com/HandsomeNPC/sa-token-go/stputil"
 )
 
 // SysUser 用户实体（完整的用户对象）

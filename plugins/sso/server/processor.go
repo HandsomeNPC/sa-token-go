@@ -3,9 +3,9 @@ package server
 import (
 	"net/url"
 
-	core "github.com/sa-tokens/sa-token-go/core"
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	satokenctx "github.com/sa-tokens/sa-token-go/core/context"
+	core "github.com/HandsomeNPC/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	satokenctx "github.com/HandsomeNPC/sa-token-go/core/context"
 )
 
 const (

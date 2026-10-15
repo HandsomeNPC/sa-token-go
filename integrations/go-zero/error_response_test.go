@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sa-tokens/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/core"
 )
 
 func TestWriteErrorResponse_NotLoginUsesErrsText(t *testing.T) {

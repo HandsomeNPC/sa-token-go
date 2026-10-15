@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/sa-tokens/sa-token-go/core/errs"
-	"github.com/sa-tokens/sa-token-go/storage/memory"
+	"github.com/HandsomeNPC/sa-token-go/core/errs"
+	"github.com/HandsomeNPC/sa-token-go/storage/memory"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

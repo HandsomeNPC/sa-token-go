@@ -2,7 +2,7 @@ package fiber
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/sa-tokens/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
 	"time"
 )
 

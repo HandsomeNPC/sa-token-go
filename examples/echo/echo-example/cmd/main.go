@@ -5,9 +5,9 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/sa-tokens/sa-token-go/core"
-	saecho "github.com/sa-tokens/sa-token-go/integrations/echo"
-	"github.com/sa-tokens/sa-token-go/storage/memory"
+	"github.com/HandsomeNPC/sa-token-go/core"
+	saecho "github.com/HandsomeNPC/sa-token-go/integrations/echo"
+	"github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 func main() {

@@ -8,10 +8,10 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	"github.com/sa-tokens/sa-token-go/core"
-	user "github.com/sa-tokens/sa-token-go/examples/hertz/hertz-example/biz/model/user"
-	sahertz "github.com/sa-tokens/sa-token-go/integrations/hertz"
-	"github.com/sa-tokens/sa-token-go/stputil"
+	"github.com/HandsomeNPC/sa-token-go/core"
+	user "github.com/HandsomeNPC/sa-token-go/examples/hertz/hertz-example/biz/model/user"
+	sahertz "github.com/HandsomeNPC/sa-token-go/integrations/hertz"
+	"github.com/HandsomeNPC/sa-token-go/stputil"
 )
 
 // Login .

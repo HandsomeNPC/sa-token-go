@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/sa-tokens/sa-token-go/core"
-	"github.com/sa-tokens/sa-token-go/stputil"
+	"github.com/HandsomeNPC/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/stputil"
 )
 
 // Annotation constants | 注解常量

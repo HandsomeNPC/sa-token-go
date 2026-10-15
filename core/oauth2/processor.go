@@ -3,10 +3,10 @@ package oauth2
 import (
 	"strings"
 
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/config"
-	"github.com/sa-tokens/sa-token-go/core/errs"
-	"github.com/sa-tokens/sa-token-go/core/oauth2/granttype"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/config"
+	"github.com/HandsomeNPC/sa-token-go/core/errs"
+	"github.com/HandsomeNPC/sa-token-go/core/oauth2/granttype"
 )
 
 // APIPaths configurable OAuth2 HTTP paths | OAuth2 路由路径

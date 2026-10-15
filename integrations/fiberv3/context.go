@@ -1,7 +1,7 @@
 package fiberv3
 
 import (
-	"github.com/sa-tokens/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
 	"time"
 )
 

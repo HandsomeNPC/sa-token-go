@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/transport/http"
-	v1 "github.com/sa-tokens/sa-token-go/examples/kratos/kratos-example/api/helloworld/v1"
-	sakratos "github.com/sa-tokens/sa-token-go/integrations/kratos"
-	"github.com/sa-tokens/sa-token-go/storage/memory"
-	"github.com/sa-tokens/sa-token-go/stputil"
+	v1 "github.com/HandsomeNPC/sa-token-go/examples/kratos/kratos-example/api/helloworld/v1"
+	sakratos "github.com/HandsomeNPC/sa-token-go/integrations/kratos"
+	"github.com/HandsomeNPC/sa-token-go/storage/memory"
+	"github.com/HandsomeNPC/sa-token-go/stputil"
 )
 
 var (

@@ -9,10 +9,10 @@ import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/ut"
 	"github.com/cloudwego/hertz/pkg/common/utils"
-	"github.com/sa-tokens/sa-token-go/core/config"
-	"github.com/sa-tokens/sa-token-go/core/manager"
-	"github.com/sa-tokens/sa-token-go/storage/memory"
-	"github.com/sa-tokens/sa-token-go/stputil"
+	"github.com/HandsomeNPC/sa-token-go/core/config"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
+	"github.com/HandsomeNPC/sa-token-go/storage/memory"
+	"github.com/HandsomeNPC/sa-token-go/stputil"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -1,13 +1,13 @@
-module github.com/sa-tokens/sa-token-go/examples/fiberv3-example
+module github.com/HandsomeNPC/sa-token-go/examples/fiberv3-example
 
 go 1.25.0
 
 require (
 	github.com/gofiber/fiber/v3 v3.4.0
-	github.com/sa-tokens/sa-token-go/core v0.2.4
-	github.com/sa-tokens/sa-token-go/integrations/fiberv3 v0.2.4
-	github.com/sa-tokens/sa-token-go/storage/memory v0.2.4
-	github.com/sa-tokens/sa-token-go/stputil v0.2.4
+	github.com/HandsomeNPC/sa-token-go/core v0.2.4
+	github.com/HandsomeNPC/sa-token-go/integrations/fiberv3 v0.2.4
+	github.com/HandsomeNPC/sa-token-go/storage/memory v0.2.4
+	github.com/HandsomeNPC/sa-token-go/stputil v0.2.4
 )
 
 require (
@@ -33,8 +33,8 @@ require (
 
 // 本地 workspace 开发：fiberv3 尚未发布到代理时用 replace 指向仓库内模块
 replace (
-	github.com/sa-tokens/sa-token-go/core => ../../../core
-	github.com/sa-tokens/sa-token-go/integrations/fiberv3 => ../../../integrations/fiberv3
-	github.com/sa-tokens/sa-token-go/storage/memory => ../../../storage/memory
-	github.com/sa-tokens/sa-token-go/stputil => ../../../stputil
+	github.com/HandsomeNPC/sa-token-go/core => ../../../core
+	github.com/HandsomeNPC/sa-token-go/integrations/fiberv3 => ../../../integrations/fiberv3
+	github.com/HandsomeNPC/sa-token-go/storage/memory => ../../../storage/memory
+	github.com/HandsomeNPC/sa-token-go/stputil => ../../../stputil
 )

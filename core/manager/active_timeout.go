@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/sa-tokens/sa-token-go/core/errs"
-	"github.com/sa-tokens/sa-token-go/core/session"
+	"github.com/HandsomeNPC/sa-token-go/core/errs"
+	"github.com/HandsomeNPC/sa-token-go/core/session"
 )
 
 // UpdateLastActiveToNow refreshes TokenInfo.ActiveTime | 更新最后活跃时间

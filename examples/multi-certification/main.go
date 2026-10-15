@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/sa-tokens/sa-token-go/core"
-	"github.com/sa-tokens/sa-token-go/examples/multi-certification/authkit"
-	"github.com/sa-tokens/sa-token-go/storage/memory"
-	"github.com/sa-tokens/sa-token-go/stputil"
+	"github.com/HandsomeNPC/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/examples/multi-certification/authkit"
+	"github.com/HandsomeNPC/sa-token-go/storage/memory"
+	"github.com/HandsomeNPC/sa-token-go/stputil"
 )
 
 func main() {

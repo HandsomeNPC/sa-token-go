@@ -26,8 +26,8 @@ Sa-Token-Go provides a powerful event system for monitoring authentication and a
 
 ```go
 import (
-    "github.com/sa-tokens/sa-token-go/core"
-    "github.com/sa-tokens/sa-token-go/storage/memory"
+    "github.com/HandsomeNPC/sa-token-go/core"
+    "github.com/HandsomeNPC/sa-token-go/storage/memory"
 )
 
 manager := core.NewBuilder().

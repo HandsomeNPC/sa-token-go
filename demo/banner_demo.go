@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/sa-tokens/sa-token-go/core/banner"
-	"github.com/sa-tokens/sa-token-go/core/config"
+	"github.com/HandsomeNPC/sa-token-go/core/banner"
+	"github.com/HandsomeNPC/sa-token-go/core/config"
 )
 
 func main() {

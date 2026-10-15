@@ -4,10 +4,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/errs"
-	"github.com/sa-tokens/sa-token-go/core/session"
-	"github.com/sa-tokens/sa-token-go/core/utils"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/errs"
+	"github.com/HandsomeNPC/sa-token-go/core/session"
+	"github.com/HandsomeNPC/sa-token-go/core/utils"
 )
 
 // GetTokenSession loads or optionally creates a Token-Session | 获取 Token-Session

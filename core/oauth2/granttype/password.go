@@ -1,8 +1,8 @@
 package granttype
 
 import (
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/errs"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/errs"
 )
 
 // PasswordHandler resource-owner password grant | 密码模式

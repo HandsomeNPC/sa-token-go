@@ -3,19 +3,19 @@ package core
 import (
 	"time"
 
-	"github.com/sa-tokens/sa-token-go/core/adapter"
-	"github.com/sa-tokens/sa-token-go/core/builder"
-	"github.com/sa-tokens/sa-token-go/core/config"
-	"github.com/sa-tokens/sa-token-go/core/context"
-	"github.com/sa-tokens/sa-token-go/core/listener"
-	"github.com/sa-tokens/sa-token-go/core/manager"
-	"github.com/sa-tokens/sa-token-go/core/oauth2"
-	"github.com/sa-tokens/sa-token-go/core/router"
-	"github.com/sa-tokens/sa-token-go/core/security"
-	"github.com/sa-tokens/sa-token-go/core/session"
-	"github.com/sa-tokens/sa-token-go/core/token"
-	"github.com/sa-tokens/sa-token-go/core/utils"
-	"github.com/sa-tokens/sa-token-go/core/version"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/builder"
+	"github.com/HandsomeNPC/sa-token-go/core/config"
+	"github.com/HandsomeNPC/sa-token-go/core/context"
+	"github.com/HandsomeNPC/sa-token-go/core/listener"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
+	"github.com/HandsomeNPC/sa-token-go/core/oauth2"
+	"github.com/HandsomeNPC/sa-token-go/core/router"
+	"github.com/HandsomeNPC/sa-token-go/core/security"
+	"github.com/HandsomeNPC/sa-token-go/core/session"
+	"github.com/HandsomeNPC/sa-token-go/core/token"
+	"github.com/HandsomeNPC/sa-token-go/core/utils"
+	"github.com/HandsomeNPC/sa-token-go/core/version"
 )
 
 // Version Sa-Token-Go version | Sa-Token-Go版本

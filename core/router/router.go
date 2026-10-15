@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/sa-tokens/sa-token-go/core/manager"
+	"github.com/HandsomeNPC/sa-token-go/core/manager"
 	"strings"
 )
 

@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"strings"
 
-	core "github.com/sa-tokens/sa-token-go/core"
-	"github.com/sa-tokens/sa-token-go/core/adapter"
+	core "github.com/HandsomeNPC/sa-token-go/core"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
 )
 
 const (

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/sa-tokens/sa-token-go/core/adapter"
+	"github.com/HandsomeNPC/sa-token-go/core/adapter"
 )
 
 type GFContext struct {
