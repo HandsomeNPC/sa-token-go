@@ -3,9 +3,9 @@ module github.com/HandsomeNPC/sa-token-go/integrations/fiber
 go 1.25.0
 
 require (
-	github.com/gofiber/fiber/v2 v2.52.13
 	github.com/HandsomeNPC/sa-token-go/core v0.2.6
 	github.com/HandsomeNPC/sa-token-go/stputil v0.2.6
+	github.com/gofiber/fiber/v2 v2.52.15
 )
 
 require (
@@ -17,7 +17,7 @@ require (
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.22 // indirect
 	github.com/mattn/go-runewidth v0.0.23 // indirect
-	github.com/panjf2000/ants/v2 v2.12.0 // indirect
+	github.com/panjf2000/ants/v2 v2.12.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.71.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect

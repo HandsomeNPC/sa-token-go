@@ -3,10 +3,10 @@ module github.com/HandsomeNPC/sa-token-go/integrations/kratos
 go 1.25.0
 
 require (
-	github.com/go-kratos/kratos/v2 v2.9.2
 	github.com/HandsomeNPC/sa-token-go/core v0.2.6
 	github.com/HandsomeNPC/sa-token-go/storage/memory v0.2.6
 	github.com/HandsomeNPC/sa-token-go/stputil v0.2.6
+	github.com/go-kratos/kratos/v2 v2.9.2
 )
 
 require (
@@ -15,7 +15,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.3.1 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
-	github.com/panjf2000/ants/v2 v2.12.0 // indirect
+	github.com/panjf2000/ants/v2 v2.12.1 // indirect
 	golang.org/x/net v0.54.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/sys v0.44.0 // indirect

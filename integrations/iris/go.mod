@@ -3,11 +3,11 @@ module github.com/HandsomeNPC/sa-token-go/integrations/iris
 go 1.25.0
 
 require (
-	github.com/kataras/iris/v12 v12.2.11
 	github.com/HandsomeNPC/sa-token-go/core v0.2.6
 	github.com/HandsomeNPC/sa-token-go/storage/memory v0.2.6
 	github.com/HandsomeNPC/sa-token-go/stputil v0.2.6
-	github.com/stretchr/testify v1.11.1
+	github.com/kataras/iris/v12 v12.2.11
+	github.com/stretchr/testify v1.12.1
 )
 
 require (
@@ -18,7 +18,6 @@ require (
 	github.com/Shopify/goreferrer v0.0.0-20220729165902-8cddb4f5de06 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
-	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/flosch/pongo2/v4 v4.0.2 // indirect
 	github.com/golang-jwt/jwt/v5 v5.3.1 // indirect
@@ -37,8 +36,7 @@ require (
 	github.com/mailgun/raymond/v2 v2.0.48 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.26 // indirect
-	github.com/panjf2000/ants/v2 v2.12.0 // indirect
-	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
+	github.com/panjf2000/ants/v2 v2.12.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/schollz/closestmatch v2.1.0+incompatible // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
@@ -48,6 +46,7 @@ require (
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/yosssi/ace v0.0.5 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/crypto v0.22.0 // indirect
 	golang.org/x/exp v0.0.0-20240404231335-c0f41cb1a7a0 // indirect
 	golang.org/x/net v0.24.0 // indirect

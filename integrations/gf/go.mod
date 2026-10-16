@@ -3,9 +3,9 @@ module github.com/HandsomeNPC/sa-token-go/integrations/gf
 go 1.25.0
 
 require (
-	github.com/gogf/gf/v2 v2.10.2
 	github.com/HandsomeNPC/sa-token-go/core v0.2.6
 	github.com/HandsomeNPC/sa-token-go/stputil v0.2.6
+	github.com/gogf/gf/v2 v2.10.3
 )
 
 require (
@@ -32,7 +32,7 @@ require (
 	github.com/olekukonko/errors v1.3.0 // indirect
 	github.com/olekukonko/ll v0.1.8 // indirect
 	github.com/olekukonko/tablewriter v1.1.4 // indirect
-	github.com/panjf2000/ants/v2 v2.12.0 // indirect
+	github.com/panjf2000/ants/v2 v2.12.1 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/otel v1.43.0 // indirect
 	go.opentelemetry.io/otel/metric v1.43.0 // indirect
